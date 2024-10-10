@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/hms_logo_png.png' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to ITW Hospitals</h1>
+
+        <div class="tabs">
+            <button class="tab-button {% if active_tab == 'Patient' %}active{% endif %}" onclick="openTab(event, 'Patient')">Patient</button>
+            <button class="tab-button {% if active_tab == 'Doctor' %}active{% endif %}" onclick="openTab(event, 'Doctor')">Doctor</button>
+            <button class="tab-button {% if active_tab == 'Receptionist' %}active{% endif %}" onclick="openTab(event, 'Receptionist')">Receptionist</button>
+        </div>
+
+        <!-- Patient Tab -->
+        <div id="Patient" class="tab-content {% if active_tab == 'Patient' %}active{% endif %}">
+            <h2>Register as Patient</h2>
+            <form method="POST" id="patientForm" action="{% url 'register' %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="hidden" name="role" value="Patient">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+        <!-- Doctor Tab -->
+        <div id="Doctor" class="tab-content {% if active_tab == 'Doctor' %}active{% endif %}">
+            <h2>Register as Doctor</h2>
+            <form method="POST" id="DoctorForm" action="{% url 'register' %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="hidden" name="role" value="Doctor">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+        <!-- Receptionist Tab -->
+        <div id="Receptionist" class="tab-content {% if active_tab == 'Receptionist' %}active{% endif %}">
+            <h2>Register as Receptionist</h2>
+            <form method="POST" id="receptionistForm" action="{% url 'register' %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="hidden" name="role" value="Receptionist">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
